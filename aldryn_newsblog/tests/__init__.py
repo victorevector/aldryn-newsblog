@@ -312,3 +312,6 @@ class NewsBlogTransactionTestCase(CleanUpMixin,
                                   TransactionCMSTestCase):
     apphook_object = NewsBlogApp
     pass
+
+DB_BACKEND = os.environ.get('DB_BACKEND', 'SQLITE')
+print("Using DB Backend: {0}.".format(DB_BACKEND))

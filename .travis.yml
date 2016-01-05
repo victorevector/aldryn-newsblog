@@ -54,6 +54,10 @@ cache:
   directories:
     - $HOME/.wheelhouse
 
+services:
+  - mysql
+  - postgresql
+
 before_install:
   - npm install -g npm
 
@@ -62,6 +66,11 @@ install:
   - pip install coveralls
 
 before_script:
+  # Prepare appropriate DB backend
+  - sh -c "if [ '$DB_BACKEND' = 'POSTGRES' ];
+    then psql -c 'DROP DATABASE IF EXISTS test;' -U postgres; fi"
+  - sh -c "if [ '$DB_BACKEND' = 'MYSQL' ];
+    then mysql -e 'create database IF NOT EXISTS test CHARACTER SET utf8 COLLATE utf8_general_ci;'; fi"
   - npm install -g gulp
   - npm install -g codeclimate-test-reporter
   - npm install

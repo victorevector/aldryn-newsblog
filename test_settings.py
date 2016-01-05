@@ -11,6 +11,9 @@ import os
 django_version = LooseVersion(get_version())
 cms_version = LooseVersion(cms_string_version)
 
+
+DB_BACKEND = os.environ.get('DB_BACKEND', 'SQLITE')
+
 HELPER_SETTINGS = {
     'TIME_ZONE': 'Europe/Zurich',
     'INSTALLED_APPS': [
@@ -113,28 +116,6 @@ HELPER_SETTINGS = {
         'filer.thumbnail_processors.scale_and_crop_with_subject_location',
         'easy_thumbnails.processors.filters',
     ),
-    # 'DATABASES': {
-    #     'default': {
-    #         'ENGINE': 'django.db.backends.sqlite3',
-    #         'NAME': 'mydatabase',
-    #     },
-    #     'mysql': {
-    #         'ENGINE': 'django.db.backends.mysql',
-    #         'NAME': 'newsblog_test',
-    #         'USER': 'root',
-    #         'PASSWORD': '',
-    #         'HOST': '',
-    #         'PORT': '3306',
-    #     },
-    #     'postgres': {
-    #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #         'NAME': 'newsblog_test',
-    #         'USER': 'test',
-    #         'PASSWORD': '',
-    #         'HOST': '127.0.0.1',
-    #         'PORT': '5432',
-    #     }
-    # }
     # This set of MW classes should work for Django 1.6 and 1.7.
     'MIDDLEWARE_CLASSES': [
         'django.contrib.sessions.middleware.SessionMiddleware',
@@ -150,6 +131,36 @@ HELPER_SETTINGS = {
         'cms.middleware.language.LanguageCookieMiddleware'
     ]
 }
+
+# Configured desired DB backend
+if DB_BACKEND == 'MYSQL':
+    print("Configuring backend for: MySQL")
+    HELPER_SETTINGS['DATABASES'] = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'test',
+            'USER': 'travis',
+            'PASSWORD': '',
+            'HOST': '',
+            'PORT': '3306',
+        }
+    }
+elif DB_BACKEND == 'POSTGRES':
+    print("Configuring backend for: PostgresSQL")
+    HELPER_SETTINGS['DATABASES'] = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'test',
+            'USER': 'postgres',
+            'PASSWORD': '',
+            'HOST': '127.0.0.1',
+            'PORT': '5432',
+        }
+    }
+else:
+    print("Configuring backend for: SQLite")
+    # This is already configured by default
+    pass
 
 # If using CMS 3.2+, use the CMS middleware for ApphookReloading, otherwise,
 # use aldryn_apphook_reload's.
