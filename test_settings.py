@@ -134,23 +134,24 @@ HELPER_SETTINGS = {
 
 # Configured desired DB backend
 if DB_BACKEND == 'MYSQL':
-    print("Configuring backend for: MySQL")
+    mysql_user = os.getenv('MYSQL_TESTS_USER', 'root')
     HELPER_SETTINGS['DATABASES'] = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'test',
-            'USER': 'travis',
+            # Django test framework will add a test_ prefix to this name
+            'NAME': 'tox_aldryn_newsblog',
+            'USER': mysql_user,
             'PASSWORD': '',
             'HOST': '',
             'PORT': '3306',
         }
     }
 elif DB_BACKEND == 'POSTGRES':
-    print("Configuring backend for: PostgresSQL")
     HELPER_SETTINGS['DATABASES'] = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'test',
+            # Django test framework will add a test_ prefix to this name
+            'NAME': 'tox_aldryn_newsblog',
             'USER': 'postgres',
             'PASSWORD': '',
             'HOST': '127.0.0.1',

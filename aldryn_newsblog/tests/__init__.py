@@ -5,6 +5,7 @@ import os
 import random
 import string
 import sys
+from pprint import pprint
 
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser, User
@@ -314,4 +315,6 @@ class NewsBlogTransactionTestCase(CleanUpMixin,
     pass
 
 DB_BACKEND = os.environ.get('DB_BACKEND', 'SQLITE')
+print('--- Database configuration ---')
 print("Using DB Backend: {0}.".format(DB_BACKEND))
+pprint(settings.DATABASES)
