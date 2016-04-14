@@ -11,7 +11,7 @@ from django.utils.translation import activate, override
 from aldryn_newsblog.models import Article
 from cms import api
 
-from . import NewsBlogTestCase, NewsBlogTransactionTestCase, TESTS_STATIC_ROOT
+from . import NewsBlogTestCase, TESTS_STATIC_ROOT
 
 FEATURED_IMAGE_PATH = os.path.join(TESTS_STATIC_ROOT, 'featured_image.jpg')
 
@@ -199,7 +199,7 @@ class TestModels(NewsBlogTestCase):
         self.assertEquals(article.slug, initial_slug)
 
 
-class TestModelsTransactions(NewsBlogTransactionTestCase):
+class TestModelsTransactions(NewsBlogTestCase):
 
     def test_duplicate_title_and_language(self):
         """

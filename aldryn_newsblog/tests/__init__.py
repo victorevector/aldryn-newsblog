@@ -22,7 +22,7 @@ from cms import api
 from cms.apphook_pool import apphook_pool
 from cms.appresolver import clear_app_resolvers
 from cms.exceptions import AppAlreadyRegistered
-from cms.test_utils.testcases import CMSTestCase, TransactionCMSTestCase
+from cms.test_utils.testcases import TransactionCMSTestCase
 from cms.utils import get_cms_setting
 
 from cms.toolbar.toolbar import CMSToolbar
@@ -303,16 +303,12 @@ class CleanUpMixin(object):
                 del sys.modules[module]
 
 
-class NewsBlogTestCase(CleanUpMixin, NewsBlogTestsMixin, CMSTestCase):
+class NewsBlogTestCase(CleanUpMixin,
+                       NewsBlogTestsMixin,
+                       TransactionCMSTestCase):
     apphook_object = NewsBlogApp
     pass
 
-
-class NewsBlogTransactionTestCase(CleanUpMixin,
-                                  NewsBlogTestsMixin,
-                                  TransactionCMSTestCase):
-    apphook_object = NewsBlogApp
-    pass
 
 DB_BACKEND = os.environ.get('DB_BACKEND', 'SQLITE')
 print('--- Database configuration ---')
