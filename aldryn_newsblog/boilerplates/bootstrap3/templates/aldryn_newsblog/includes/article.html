@@ -45,7 +45,7 @@
                         {% endcomment %}
                         <div class="content-preview">
                             {% comment %} {% render_placeholder article.content language placeholder_language|truncatewords_html:2%} {% endcomment %}
-                            {% render_placeholder article.content as content %}{{ content|truncatewords_html:2 }}
+                            {% render_placeholder article.content language placeholder_language as content %}{{ content|truncatewords_html:4 }}
                         </div>
             </div>
     </div>
