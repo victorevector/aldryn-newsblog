@@ -2,14 +2,14 @@
 
  <div class="aldryn aldryn-newsblog aldryn-newsblog-categories">
     <div class="dropdown">
-        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownBlogCategories" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <button class="btn dropdown-toggle" type="button" id="dropdownBlogCategories" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="background-color: white;">
             {% get_current_language as LANGUAGE_CODE %}
             {% if LANGUAGE_CODE == 'es' %} Categorías {% else %} Categories {% endif %}
             <span class="caret"></span>
         </button>
 
         <ul class="list-unstyled dropdown-menu" aria-labelledby="dropdownBlogCategories">
-            <li{% if not newsblog_category %} class="active"{% endif %}>
+            <li{% if not newsblog_category %} style="background-color: #8cbf00;"{% endif %}>
                 <a href="{% namespace_url "article-list" namespace=instance.app_config.namespace default='' %}">{% trans "All" %}</a>
             </li>
             {% for category in categories %}
@@ -21,3 +21,7 @@
         </ul>
     </div>
 </div>
+
+<style type="text/css">
+    
+</style>
